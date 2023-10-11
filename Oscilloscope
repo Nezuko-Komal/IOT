@@ -1,0 +1,29 @@
+import time
+import matplotlib.pyplot as plt
+import drawnow
+from drawnow import drawnow,figure
+import Adafruit_ADS1x15
+adc = Adafruit_ADS1x15.ADS1115()
+GAIN = 1
+value=[]
+cnt = 0
+plt.ion()
+adc.start_adc(0,gain=GAIN)
+
+def makeFig():
+    plt.ylim(-9000,19000)
+    plt.title("Oscilloscope")
+    plt.grid(True)
+    plt.ylabel('ADC outputs')
+    plt.plot(value,'ro-',label = 'lux')
+    plt.legend(loc ='lower right')
+    
+while True:
+    values = adc.get_last_result()
+    print('Channel 0:{0}'.format(value))
+    time.sleep(0.5)
+    value.append(int(values))
+    drawnow(makeFig)
+    cnt=cnt+1
+    if(cnt>50):
+        value.pop(0)
