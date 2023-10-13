@@ -1,0 +1,14 @@
+from time import sleep
+from picamera import PiCamera
+
+camera = PiCamera()
+camera.resolution = (1280, 720)
+img = camera.start_preview()
+sleep(0.9)
+camera.stop_preview()
+
+if img == '/home/pi/Pictures/satya.jpg':
+
+    print("Satya");
+
+
